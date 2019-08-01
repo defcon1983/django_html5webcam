@@ -38,8 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # third party
+    'oauth2_provider',
+    'rest_framework',
+
     # local apps
     'webcam.apps.WebcamConfig',
+    'users.apps.UsersConfig',
+    'unicorn.apps.UnicornConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -50,7 +57,31 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'oauth2_provider.middleware.OAuth2TokenMiddleware',
+
 ]
+
+# -- Setup DRF to use OAuth2
+REST_FRAMEWORK = {
+    'DEFAULT_AUHTENTICATION_CLASSES': (
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+        'rest_framework.authentication.SessionAuthentication', # To keep the browsable API
+    ),
+
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+
+}
+
+
+# -- Specify the authentictation backends
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend', # To keep the browsable api
+    'oauth2_provider.backends.OAuth2Backend',
+
+)
 
 ROOT_URLCONF = 'html5webcam.urls'
 
