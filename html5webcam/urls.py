@@ -17,6 +17,9 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
+from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LogoutView
+
 
 from rest_framework.routers import DefaultRouter
 
@@ -36,6 +39,16 @@ urlpatterns = [
 
     # API
     path('v1/', include(router.urls)),
+
+    # login and redirection
+    path('login/', LoginView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+
+    # index
+    path('', include('home.urls')),
+
+
+
 
 
 ]

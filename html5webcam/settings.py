@@ -41,11 +41,16 @@ INSTALLED_APPS = [
     # third party
     'oauth2_provider',
     'rest_framework',
+    'crispy_forms',
+    'bootstrap4',
 
     # local apps
     'webcam.apps.WebcamConfig',
     'users.apps.UsersConfig',
     'unicorn.apps.UnicornConfig',
+    'home.apps.HomeConfig',
+    'workflow.apps.WorkflowConfig',
+
 
 ]
 
@@ -162,3 +167,12 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+
+# login stuff
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home-index'
+LOGOUT_REDIRECT_URL = 'login'
+
+
+# crispy forms bootstrap
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
